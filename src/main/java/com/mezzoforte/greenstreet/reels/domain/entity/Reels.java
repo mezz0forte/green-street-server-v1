@@ -27,5 +27,4 @@ public class Reels {
     @JoinColumn(name = "user_id")
     private User user;
 
-
 }
