@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity(name = "posting")
 @Getter
@@ -31,10 +33,13 @@ public class Posting {
     @Enumerated(value = EnumType.STRING)
     private PostingStatus status;
 
+    @Column(nullable = false)
+    private long likeCount;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private User user;
 
-//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "")
-//    private
+    @OneToMany(mappedBy = "posting")
+    private List<Photo> photos = new ArrayList<>();
 }
