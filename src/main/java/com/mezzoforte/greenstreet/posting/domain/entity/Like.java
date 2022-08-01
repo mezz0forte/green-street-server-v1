@@ -7,12 +7,12 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-@Entity(name = "like")
+@Entity(name = "posting_like")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Like {
 
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
     @ManyToOne(fetch = FetchType.LAZY)

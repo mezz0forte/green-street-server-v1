@@ -13,7 +13,7 @@ import javax.persistence.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Posting {
 
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
     @Column(nullable = false, length = 50)
@@ -31,7 +31,10 @@ public class Posting {
     @Enumerated(value = EnumType.STRING)
     private PostingStatus status;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private User user;
+
+//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "")
+//    private
 }
