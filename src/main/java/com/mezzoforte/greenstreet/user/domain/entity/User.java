@@ -15,8 +15,14 @@ public class User {
     private long id;
 
     @Column(nullable = false, length = 20)
+    private String userId;
+
+    @Column(nullable = false, length = 20)
     private String nickname;
 
     @Column(nullable = false)
     private String password;
+
+    @Column(nullable = false)
+    private String image;
 }
