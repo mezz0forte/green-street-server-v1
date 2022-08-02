@@ -2,9 +2,7 @@ package com.mezzoforte.greenstreet.posting.domain.entity;
 
 import com.mezzoforte.greenstreet.posting.domain.enums.PostingStatus;
 import com.mezzoforte.greenstreet.user.domain.entity.User;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -18,9 +16,11 @@ public class Posting {
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
+    @Setter
     @Column(nullable = false, length = 50)
     private String title;
 
+    @Setter
     @Lob
     private String content;
 
@@ -40,6 +40,16 @@ public class Posting {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToMany(mappedBy = "posting")
-    private List<Photo> photos = new ArrayList<>();
+//    @OneToMany(mappedBy = "posting")
+//    private List<Photo> photos = new ArrayList<>();
+
+    @Builder
+    public Posting(String title, String content, double latitude, double longitude, PostingStatus status, User user) {
+        this.title = title;
+        this.content = content;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.status = status;
+        this.user = user;
+    }
 }

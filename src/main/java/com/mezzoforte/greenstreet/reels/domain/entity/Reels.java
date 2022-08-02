@@ -19,12 +19,11 @@ public class Reels {
     @Column(nullable = false)
     private String video;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne
     @JoinColumn(name = "posting_id")
     private Posting posting;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
-
 }
