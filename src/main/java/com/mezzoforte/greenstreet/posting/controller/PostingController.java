@@ -20,10 +20,10 @@ public class PostingController {
 
     private final PostingService postingService;
 
-    @GetMapping("/")
-    public ResponseData<List<Posting>> getAllPostings() {
-        List<Posting> postings = postingService.getAllPostings();
-        return new ResponseData<>(HttpStatus.OK, "모든 포스팅 조회 성공", postings);
+    @GetMapping
+    @ResponseStatus(HttpStatus.OK)
+    public List<Posting> getPostingsByDistance(@RequestParam long latitude, @RequestParam long longitude) {
+        return postingService.getPostingsByDistance(latitude, longitude);
     }
 
     @GetMapping("/{id}")
@@ -32,7 +32,7 @@ public class PostingController {
         return new ResponseData<>(HttpStatus.OK, "id로 포스팅 조회 성공", posting);
     }
 
-    @PostMapping("/")
+    @PostMapping
     public ResponseData<Posting> postPosting(@RequestBody @Valid CreatePostingDto dto) {
         Posting posting = postingService.createPosting(dto);
         return new ResponseData<>(HttpStatus.CREATED, "포스팅 생성 성공", posting);

@@ -15,7 +15,7 @@ public class User {
     private long id;
 
     @Column(nullable = false, length = 20)
-    private String userId;
+    private String phone;
 
     @Column(nullable = false, length = 20)
     private String nickname;

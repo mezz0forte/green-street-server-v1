@@ -18,7 +18,7 @@ public class PostingService {
 
     private final PostingRepository postingRepository;
 
-    public List<Posting> getAllPostings() {
+    public List<Posting> getPostingsByDistance(double latitude, double longitude) {
         return postingRepository.findAll();
     }
 
