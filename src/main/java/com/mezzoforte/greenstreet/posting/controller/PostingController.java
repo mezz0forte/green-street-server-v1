@@ -5,6 +5,7 @@ import com.mezzoforte.greenstreet.common.response.ResponseData;
 import com.mezzoforte.greenstreet.posting.domain.dto.CreatePostingDto;
 import com.mezzoforte.greenstreet.posting.domain.dto.UpdatePostingDto;
 import com.mezzoforte.greenstreet.posting.domain.entity.Posting;
+import com.mezzoforte.greenstreet.posting.domain.ro.PostingRo;
 import com.mezzoforte.greenstreet.posting.service.PostingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -22,7 +23,7 @@ public class PostingController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<Posting> getPostingsByDistance(@RequestParam long latitude, @RequestParam long longitude) {
+    public List<PostingRo> getPostingsByDistance(@RequestParam double latitude, @RequestParam double longitude) {
         return postingService.getPostingsByDistance(latitude, longitude);
     }
 
@@ -39,7 +40,7 @@ public class PostingController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseData<Posting> patchPosting(@PathVariable("id") long id, @RequestBody UpdatePostingDto dto) {
+    public ResponseData<Posting> patchPosting(@PathVariable("id") long id, @RequestBody @Valid UpdatePostingDto dto) {
         Posting posting = postingService.updatePosting(id, dto);
         return new ResponseData<>(HttpStatus.OK, "포스팅 수정 성공", posting);
     }

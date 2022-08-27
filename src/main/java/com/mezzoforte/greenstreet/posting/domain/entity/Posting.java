@@ -16,11 +16,9 @@ public class Posting {
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @Setter
     @Column(nullable = false, length = 50)
     private String title;
 
-    @Setter
     @Lob
     private String content;
 
@@ -42,6 +40,11 @@ public class Posting {
 
 //    @OneToMany(mappedBy = "posting")
 //    private List<Photo> photos = new ArrayList<>();
+
+    public void modifyTitleAndContent(String title, String content) {
+        this.title = title;
+        this.content = content;
+    }
 
     @Builder
     public Posting(String title, String content, double latitude, double longitude, PostingStatus status, User user) {
