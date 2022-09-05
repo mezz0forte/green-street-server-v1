@@ -22,6 +22,10 @@ public class PostingService {
     private final PostingRepository postingRepository;
 
     public List<PostingRo> getPostingsByDistance(double latitude, double longitude) {
+
+        List<Posting> postingList = postingRepository.findAll();
+
+
         return postingRepository.findAll()
                 .stream().map((posting) -> new PostingRo(
                         posting.getId(),

@@ -34,13 +34,13 @@ public class PostingController {
     }
 
     @PostMapping
-    public ResponseData<Posting> postPosting(@RequestBody @Valid CreatePostingDto dto) {
+    public ResponseData<Posting> createPosting(@RequestBody @Valid CreatePostingDto dto) {
         Posting posting = postingService.createPosting(dto);
         return new ResponseData<>(HttpStatus.CREATED, "포스팅 생성 성공", posting);
     }
 
     @PatchMapping("/{id}")
-    public ResponseData<Posting> patchPosting(@PathVariable("id") long id, @RequestBody @Valid UpdatePostingDto dto) {
+    public ResponseData<Posting> updatePosting(@PathVariable("id") long id, @RequestBody @Valid UpdatePostingDto dto) {
         Posting posting = postingService.updatePosting(id, dto);
         return new ResponseData<>(HttpStatus.OK, "포스팅 수정 성공", posting);
     }

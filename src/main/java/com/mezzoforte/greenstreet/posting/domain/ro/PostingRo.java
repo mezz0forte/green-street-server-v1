@@ -3,7 +3,6 @@ package com.mezzoforte.greenstreet.posting.domain.ro;
 import com.mezzoforte.greenstreet.posting.domain.enums.PostingStatus;
 import com.mezzoforte.greenstreet.user.domain.ro.UserRo;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 
 @Getter
