@@ -1,10 +1,12 @@
 package com.mezzoforte.greenstreet.user.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 
 @Entity
 @Getter
@@ -17,9 +19,11 @@ public class User {
     @Column(nullable = false, length = 20)
     private String phone;
 
-    @Column(nullable = false, length = 20)
+    @Column(nullable = false, length = 50)
+    @Size(max = 50)
     private String nickname;
 
+    @JsonIgnore
     @Column(nullable = false)
     private String password;
 
