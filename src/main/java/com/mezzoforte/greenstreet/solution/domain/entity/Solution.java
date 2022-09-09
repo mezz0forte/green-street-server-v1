@@ -11,6 +11,8 @@ import org.hibernate.annotations.CreationTimestamp;
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity(name = "solution")
 @Getter
@@ -38,6 +40,9 @@ public class Solution {
 
     @Column(nullable = false)
     private long likeCount;
+
+    @OneToMany(mappedBy = "solution")
+    private List<SolutionComment> commentList = new ArrayList<>();
 
     @CreationTimestamp
     private LocalDateTime createdAt;
