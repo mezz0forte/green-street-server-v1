@@ -87,21 +87,6 @@ public class PostingService {
     }
 
     @Transactional
-    public Posting updatePosting(long id, UpdatePostingRequest request, User user) {
-
-        Posting posting = postingRepository.findById(id)
-                .orElseThrow(() -> PostingNotFoundException.EXCEPTION);
-
-        if(!user.equals(posting.getUser())) {
-            throw InvalidPermissionException.EXCEPTION;
-        }
-
-        posting.modifyTitleAndContent(request.getTitle(), request.getContent());
-
-        return posting;
-    }
-
-    @Transactional
     public void deletePostingById(long id, User user) {
 
         Posting posting = postingFacade.getPostingById(id);
