@@ -2,13 +2,11 @@ package com.mezzoforte.greenstreet.domain.posting.service;
 
 import com.mezzoforte.greenstreet.domain.posting.entity.PostingPhoto;
 import com.mezzoforte.greenstreet.domain.posting.entity.PostingSympathy;
-import com.mezzoforte.greenstreet.domain.posting.exception.PostingNotFoundException;
 import com.mezzoforte.greenstreet.domain.posting.exception.PostingSympathyAlreadyExistsException;
 import com.mezzoforte.greenstreet.domain.posting.facade.PostingFacade;
 import com.mezzoforte.greenstreet.domain.posting.facade.PostingSympathyFacade;
 import com.mezzoforte.greenstreet.domain.posting.presentation.dto.request.CreatePostingRequest;
 import com.mezzoforte.greenstreet.domain.posting.presentation.dto.request.CreatePostingSympathyRequest;
-import com.mezzoforte.greenstreet.domain.posting.presentation.dto.request.UpdatePostingRequest;
 import com.mezzoforte.greenstreet.domain.posting.entity.Posting;
 import com.mezzoforte.greenstreet.domain.posting.repository.PostingPhotoRepository;
 import com.mezzoforte.greenstreet.domain.posting.repository.PostingSympathyRepository;
@@ -95,6 +93,7 @@ public class PostingService {
             throw InvalidPermissionException.EXCEPTION;
         }
 
+        postingPhotoRepository.deleteAllByPosting(posting);
         postingRepository.deleteById(id);
     }
 
