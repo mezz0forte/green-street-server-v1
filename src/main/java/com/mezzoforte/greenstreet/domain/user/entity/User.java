@@ -1,6 +1,7 @@
 package com.mezzoforte.greenstreet.domain.user.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.mezzoforte.greenstreet.domain.user.type.AccountType;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,9 +25,13 @@ public class User {
     private String nickname;
 
     @JsonIgnore
-    @Column(nullable = false)
+    @Size(max = 150)
     private String password;
 
     @Column(nullable = false)
     private String image;
+
+    @Enumerated(value = EnumType.STRING)
+    @Column(nullable = false)
+    private AccountType accountType;
 }
