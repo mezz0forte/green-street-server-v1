@@ -1,6 +1,8 @@
-package com.mezzoforte.greenstreet.common.response;
+package com.mezzoforte.greenstreet.global.response;
 
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.springframework.http.HttpStatus;
 
 @Getter

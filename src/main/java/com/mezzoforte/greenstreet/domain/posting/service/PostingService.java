@@ -2,6 +2,7 @@ package com.mezzoforte.greenstreet.domain.posting.service;
 
 import com.mezzoforte.greenstreet.domain.posting.exception.PostingNotFoundException;
 import com.mezzoforte.greenstreet.domain.posting.presentation.dto.request.CreatePostingRequest;
+import com.mezzoforte.greenstreet.domain.posting.presentation.dto.request.CreatePostingSympathyRequest;
 import com.mezzoforte.greenstreet.domain.posting.presentation.dto.request.UpdatePostingRequest;
 import com.mezzoforte.greenstreet.domain.posting.entity.Posting;
 import com.mezzoforte.greenstreet.domain.posting.type.PostingStatus;
@@ -30,12 +31,13 @@ public class PostingService {
                         posting.getId(),
                         posting.getLatitude(),
                         posting.getLongitude(),
-                        posting.getLikeCount(),
+                        posting.getSympathyCount(),
                         posting.getStatus(),
                         posting.getTitle(),
                         posting.getContent(),
-                        new UserRo(posting.getUser().getId(), posting.getUser().getImage(), posting.getUser().getNickname())))
-                .collect(Collectors.toList());
+                        new UserRo(posting.getUser().getId(), posting.getUser().getImage(), posting.getUser().getNickname()),
+                        posting.getPhotoList()
+                )).collect(Collectors.toList());
     }
 
     public Posting getPostingById(long id) {
@@ -44,29 +46,30 @@ public class PostingService {
         return posting;
     }
 
-    public Posting createPosting(CreatePostingRequest dto) {
+    public Posting createPosting(CreatePostingRequest request) {
 
         // TODO : 유저 매개변수로 받아서 확인 후 posting 생성할 때 넣기
 
         Posting posting = Posting.builder()
-                .title(dto.getTitle())
-                .content(dto.getContent())
-                .latitude(dto.getLatitude())
-                .longitude(dto.getLongitude())
+                .title(request.getTitle())
+                .content(request.getContent())
+                .latitude(request.getLatitude())
+                .longitude(request.getLongitude())
                 .status(PostingStatus.ACTIVE)
+                .user()
                 .build();
 
         return posting;
     }
 
-    public Posting updatePosting(long id, UpdatePostingRequest dto) {
+    public Posting updatePosting(long id, UpdatePostingRequest request) {
 
         // TODO : 유저 매개변수로 받아서 본인 게시물인지 확인
 
         Posting posting = postingRepository.findById(id)
                 .orElseThrow(() -> PostingNotFoundException.EXCEPTION);
 
-        posting.modifyTitleAndContent(dto.getTitle(), dto.getContent());
+        posting.modifyTitleAndContent(request.getTitle(), request.getContent());
 
         return posting;
     }
@@ -76,5 +79,9 @@ public class PostingService {
         // TODO : 유저 매개변수로 받아서 본인 게시물인지 확인
 
         postingRepository.deleteById(id);
+    }
+
+    public Posting createPostingSympathy(CreatePostingSympathyRequest request) {
+
     }
 }

@@ -1,6 +1,6 @@
 package com.mezzoforte.greenstreet.domain.posting.exception;
 
-import com.mezzoforte.greenstreet.common.exception.CustomException;
+import com.mezzoforte.greenstreet.global.error.CustomException;
 import org.springframework.http.HttpStatus;
 
 public class PostingNotFoundException extends CustomException {

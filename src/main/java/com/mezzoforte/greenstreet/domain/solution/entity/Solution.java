@@ -4,6 +4,7 @@ import com.mezzoforte.greenstreet.domain.solution.type.SolutionType;
 import com.mezzoforte.greenstreet.domain.posting.entity.Posting;
 import com.mezzoforte.greenstreet.domain.user.domain.entity.User;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
@@ -46,4 +47,13 @@ public class Solution {
 
     @CreationTimestamp
     private LocalDateTime createdAt;
+
+    @Builder
+    public Solution(String url, SolutionType type, User solver, Posting posting) {
+        this.url = url;
+        this.type = type;
+        this.solver = solver;
+        this.posting = posting;
+        this.likeCount = 0;
+    }
 }

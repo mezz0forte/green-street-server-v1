@@ -1,10 +1,8 @@
 package com.mezzoforte.greenstreet.domain.posting.presentation;
 
-import com.mezzoforte.greenstreet.common.response.Response;
-import com.mezzoforte.greenstreet.common.response.ResponseData;
 import com.mezzoforte.greenstreet.domain.posting.presentation.dto.request.CreatePostingRequest;
-import com.mezzoforte.greenstreet.domain.posting.presentation.dto.request.UpdatePostingRequest;
 import com.mezzoforte.greenstreet.domain.posting.entity.Posting;
+import com.mezzoforte.greenstreet.domain.posting.presentation.dto.request.CreatePostingSympathyRequest;
 import com.mezzoforte.greenstreet.domain.posting.presentation.dto.response.PostingResponse;
 import com.mezzoforte.greenstreet.domain.posting.service.PostingService;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +19,7 @@ public class PostingController {
 
     private final PostingService postingService;
 
-    @GetMapping
+    @GetMapping("/nearby")
     @ResponseStatus(HttpStatus.OK)
     public List<PostingResponse> getPostingsByDistance(@RequestParam double latitude, @RequestParam double longitude) {
         return postingService.getPostingsByDistance(latitude, longitude);
@@ -39,10 +37,10 @@ public class PostingController {
         return postingService.createPosting(request);
     }
 
-    @PatchMapping("/{id}")
-    @ResponseStatus(HttpStatus.OK)
-    public Posting updatePosting(@PathVariable("id") long id, @RequestBody @Valid UpdatePostingRequest request) {
-        return postingService.updatePosting(id, request);
+    @PostMapping("/sympathy")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Posting createPostingSympathy(@RequestBody @Valid CreatePostingSympathyRequest request) {
+        return postingService.createPostingSympathy(request);
     }
 
     @DeleteMapping("/{id}")

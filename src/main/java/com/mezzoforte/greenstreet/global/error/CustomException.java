@@ -1,4 +1,4 @@
-package com.mezzoforte.greenstreet.common.exception;
+package com.mezzoforte.greenstreet.global.error;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

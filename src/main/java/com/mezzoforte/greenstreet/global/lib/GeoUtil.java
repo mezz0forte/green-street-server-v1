@@ -1,4 +1,4 @@
-package com.mezzoforte.greenstreet.common.util;
+package com.mezzoforte.greenstreet.global.lib;
 
 import org.springframework.stereotype.Component;
 

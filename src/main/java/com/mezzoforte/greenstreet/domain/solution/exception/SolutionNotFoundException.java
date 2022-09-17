@@ -1,6 +1,6 @@
 package com.mezzoforte.greenstreet.domain.solution.exception;
 
-import com.mezzoforte.greenstreet.common.exception.CustomException;
+import com.mezzoforte.greenstreet.global.error.CustomException;
 import org.springframework.http.HttpStatus;
 
 public class SolutionNotFoundException extends CustomException {

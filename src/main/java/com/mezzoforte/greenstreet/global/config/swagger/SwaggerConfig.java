@@ -1,6 +1,5 @@
-package com.mezzoforte.greenstreet.common.config.swagger;
+package com.mezzoforte.greenstreet.global.config.swagger;
 
-import jdk.javadoc.doclet.Doclet;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
