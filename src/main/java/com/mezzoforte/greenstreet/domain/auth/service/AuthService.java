@@ -1,12 +1,14 @@
 package com.mezzoforte.greenstreet.domain.auth.service;
 
 import com.mezzoforte.greenstreet.domain.auth.exception.PasswordNotMatchException;
+import com.mezzoforte.greenstreet.domain.auth.presentation.dto.request.JoinRequest;
 import com.mezzoforte.greenstreet.domain.auth.presentation.dto.request.LoginRequest;
 import com.mezzoforte.greenstreet.domain.auth.presentation.dto.response.LoginTokenResponse;
 import com.mezzoforte.greenstreet.domain.user.entity.User;
 import com.mezzoforte.greenstreet.domain.user.facade.UserFacade;
 import com.mezzoforte.greenstreet.domain.user.presentation.dto.response.UserResponse;
 import com.mezzoforte.greenstreet.domain.user.repository.UserRepository;
+import com.mezzoforte.greenstreet.domain.user.type.AccountType;
 import com.mezzoforte.greenstreet.global.enums.JwtType;
 import com.mezzoforte.greenstreet.global.lib.Jwt;
 import com.mezzoforte.greenstreet.global.lib.encrypt.Encrypt;
@@ -21,6 +23,21 @@ public class AuthService {
     private final UserFacade userFacade;
     private final Jwt jwt;
     private final Encrypt encrypt;
+
+    public void join(JoinRequest request) {
+
+        // TODO : 전화번호 인증
+
+        String encryptedPassword = encrypt.encode(request.getPassword());
+        User user = User.builder()
+                .phone(request.getPhone())
+                .nickname(request.getNickname())
+                .image(request.getImage())
+                .accountType(AccountType.NORMAL)
+                .build();
+
+        userRepository.save(user);
+    }
 
     public LoginTokenResponse login(LoginRequest request) {
 

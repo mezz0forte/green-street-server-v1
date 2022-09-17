@@ -2,6 +2,7 @@ package com.mezzoforte.greenstreet.domain.auth.presentation;
 
 import com.mezzoforte.greenstreet.domain.auth.presentation.dto.request.JoinRequest;
 import com.mezzoforte.greenstreet.domain.auth.presentation.dto.request.LoginRequest;
+import com.mezzoforte.greenstreet.domain.auth.presentation.dto.response.LoginTokenResponse;
 import com.mezzoforte.greenstreet.domain.auth.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -17,12 +18,12 @@ public class AuthController {
     @PostMapping("/join")
     @ResponseStatus(HttpStatus.CREATED)
     public void join(@RequestBody JoinRequest request) {
-
+        authService.join(request);
     }
 
     @PostMapping("/login")
     @ResponseStatus(HttpStatus.OK)
-    public void login(@RequestBody LoginRequest request) {
-        authService.login(request);
+    public LoginTokenResponse login(@RequestBody LoginRequest request) {
+        return authService.login(request);
     }
 }

@@ -3,6 +3,7 @@ package com.mezzoforte.greenstreet.domain.user.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.mezzoforte.greenstreet.domain.user.type.AccountType;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -34,4 +35,12 @@ public class User {
     @Enumerated(value = EnumType.STRING)
     @Column(nullable = false)
     private AccountType accountType;
+
+    @Builder
+    public User(String phone, String nickname, String image, AccountType accountType) {
+        this.phone = phone;
+        this.nickname = nickname;
+        this.image = image;
+        this.accountType = accountType;
+    }
 }
