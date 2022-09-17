@@ -1,6 +1,6 @@
 package com.mezzoforte.greenstreet.global.interceptor;
 
-import com.mezzoforte.greenstreet.domain.user.domain.entity.User;
+import com.mezzoforte.greenstreet.domain.user.entity.User;
 import com.mezzoforte.greenstreet.global.annotation.AuthorizationCheck;
 import com.mezzoforte.greenstreet.global.error.exception.CredentialsNotFoundException;
 import com.mezzoforte.greenstreet.global.lib.Jwt;

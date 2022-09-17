@@ -13,8 +13,8 @@ import com.mezzoforte.greenstreet.domain.posting.repository.PostingSympathyRepos
 import com.mezzoforte.greenstreet.domain.posting.type.PostingStatus;
 import com.mezzoforte.greenstreet.domain.posting.presentation.dto.response.PostingResponse;
 import com.mezzoforte.greenstreet.domain.posting.repository.PostingRepository;
-import com.mezzoforte.greenstreet.domain.user.domain.entity.User;
-import com.mezzoforte.greenstreet.domain.user.domain.ro.UserRo;
+import com.mezzoforte.greenstreet.domain.user.entity.User;
+import com.mezzoforte.greenstreet.domain.user.presentation.dto.response.UserResponse;
 import com.mezzoforte.greenstreet.global.error.exception.InvalidPermissionException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -45,7 +45,7 @@ public class PostingService {
                         posting.getStatus(),
                         posting.getTitle(),
                         posting.getContent(),
-                        new UserRo(posting.getUser().getId(), posting.getUser().getImage(), posting.getUser().getNickname()),
+                        new UserResponse(posting.getUser().getId(), posting.getUser().getImage(), posting.getUser().getNickname()),
                         posting.getPhotoList()
                 )).collect(Collectors.toList());
     }

@@ -1,4 +1,4 @@
-package com.mezzoforte.greenstreet.domain.user.domain.entity;
+package com.mezzoforte.greenstreet.domain.user.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AccessLevel;

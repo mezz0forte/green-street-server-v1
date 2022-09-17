@@ -1,6 +1,6 @@
-package com.mezzoforte.greenstreet.domain.user.controller;
+package com.mezzoforte.greenstreet.domain.user.presentation;
 
-import com.mezzoforte.greenstreet.domain.user.domain.entity.User;
+import com.mezzoforte.greenstreet.domain.user.entity.User;
 import com.mezzoforte.greenstreet.domain.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;

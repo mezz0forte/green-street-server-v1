@@ -1,6 +1,6 @@
 package com.mezzoforte.greenstreet.domain.solution.entity;
 
-import com.mezzoforte.greenstreet.domain.user.domain.entity.User;
+import com.mezzoforte.greenstreet.domain.user.entity.User;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

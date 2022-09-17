@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import com.mezzoforte.greenstreet.domain.posting.entity.PostingPhoto;
 import com.mezzoforte.greenstreet.domain.posting.type.PostingStatus;
-import com.mezzoforte.greenstreet.domain.user.domain.ro.UserRo;
+import com.mezzoforte.greenstreet.domain.user.presentation.dto.response.UserResponse;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -22,6 +22,6 @@ public class PostingResponse {
     private PostingStatus status;
     private String title;
     private String content;
-    private UserRo user;
+    private UserResponse user;
     private List<PostingPhoto> photoList;
 }

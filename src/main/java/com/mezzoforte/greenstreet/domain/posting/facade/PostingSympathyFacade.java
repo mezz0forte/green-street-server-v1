@@ -4,7 +4,7 @@ import com.mezzoforte.greenstreet.domain.posting.entity.Posting;
 import com.mezzoforte.greenstreet.domain.posting.entity.PostingSympathy;
 import com.mezzoforte.greenstreet.domain.posting.exception.PostingSympathyNotFoundException;
 import com.mezzoforte.greenstreet.domain.posting.repository.PostingSympathyRepository;
-import com.mezzoforte.greenstreet.domain.user.domain.entity.User;
+import com.mezzoforte.greenstreet.domain.user.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

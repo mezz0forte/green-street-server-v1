@@ -2,7 +2,7 @@ package com.mezzoforte.greenstreet.domain.solution.entity;
 
 import com.mezzoforte.greenstreet.domain.solution.type.SolutionType;
 import com.mezzoforte.greenstreet.domain.posting.entity.Posting;
-import com.mezzoforte.greenstreet.domain.user.domain.entity.User;
+import com.mezzoforte.greenstreet.domain.user.entity.User;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;

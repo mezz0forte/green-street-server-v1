@@ -5,7 +5,7 @@ import com.mezzoforte.greenstreet.domain.posting.entity.Posting;
 import com.mezzoforte.greenstreet.domain.posting.presentation.dto.request.CreatePostingSympathyRequest;
 import com.mezzoforte.greenstreet.domain.posting.presentation.dto.response.PostingResponse;
 import com.mezzoforte.greenstreet.domain.posting.service.PostingService;
-import com.mezzoforte.greenstreet.domain.user.domain.entity.User;
+import com.mezzoforte.greenstreet.domain.user.entity.User;
 import com.mezzoforte.greenstreet.global.annotation.AuthorizationCheck;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

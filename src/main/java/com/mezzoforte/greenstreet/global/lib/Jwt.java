@@ -1,7 +1,7 @@
 package com.mezzoforte.greenstreet.global.lib;
 
-import com.mezzoforte.greenstreet.domain.user.domain.entity.User;
-import com.mezzoforte.greenstreet.domain.user.domain.repository.UserRepository;
+import com.mezzoforte.greenstreet.domain.user.entity.User;
+import com.mezzoforte.greenstreet.domain.user.repository.UserRepository;
 import com.mezzoforte.greenstreet.global.enums.JwtType;
 import com.mezzoforte.greenstreet.global.error.exception.InvalidTokenException;
 import com.mezzoforte.greenstreet.global.lib.encrypt.SHA512Encrypt;

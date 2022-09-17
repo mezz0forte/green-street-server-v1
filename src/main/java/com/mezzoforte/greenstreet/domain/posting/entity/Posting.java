@@ -1,7 +1,7 @@
 package com.mezzoforte.greenstreet.domain.posting.entity;
 
 import com.mezzoforte.greenstreet.domain.posting.type.PostingStatus;
-import com.mezzoforte.greenstreet.domain.user.domain.entity.User;
+import com.mezzoforte.greenstreet.domain.user.entity.User;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
