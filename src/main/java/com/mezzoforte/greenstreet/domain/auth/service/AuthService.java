@@ -14,6 +14,7 @@ import com.mezzoforte.greenstreet.global.lib.Jwt;
 import com.mezzoforte.greenstreet.global.lib.encrypt.Encrypt;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -24,6 +25,7 @@ public class AuthService {
     private final Jwt jwt;
     private final Encrypt encrypt;
 
+    @Transactional
     public void join(JoinRequest request) {
 
         // TODO : 전화번호 인증
@@ -39,6 +41,7 @@ public class AuthService {
         userRepository.save(user);
     }
 
+    @Transactional
     public LoginTokenResponse login(LoginRequest request) {
 
         User user = userFacade.queryUserByPhone(request.getPhone());
