@@ -13,7 +13,7 @@ public class UserService {
 
     private final UserRepository userRepository;
 
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
+    public void deleteUser(User user) {
+        userRepository.delete(user);
     }
 }

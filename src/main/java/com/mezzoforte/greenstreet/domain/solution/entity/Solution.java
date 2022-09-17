@@ -48,6 +48,14 @@ public class Solution {
     @CreationTimestamp
     private LocalDateTime createdAt;
 
+    public void increaseSympathyCount() {
+        this.sympathyCount += 1;
+    }
+
+    public void decreaseSympathyCount() {
+        this.sympathyCount -= 1;
+    }
+
     @Builder
     public Solution(String url, SolutionType type, User solver, Posting posting) {
         this.url = url;

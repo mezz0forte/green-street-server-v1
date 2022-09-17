@@ -3,14 +3,19 @@ package com.mezzoforte.greenstreet.domain.solution.service;
 import com.mezzoforte.greenstreet.domain.posting.entity.Posting;
 import com.mezzoforte.greenstreet.domain.posting.facade.PostingFacade;
 import com.mezzoforte.greenstreet.domain.solution.entity.SolutionComment;
+import com.mezzoforte.greenstreet.domain.solution.entity.SolutionSympathy;
+import com.mezzoforte.greenstreet.domain.solution.exception.SolutionSympathyAlreadyExistsException;
 import com.mezzoforte.greenstreet.domain.solution.facade.SolutionCommentFacade;
 import com.mezzoforte.greenstreet.domain.solution.facade.SolutionFacade;
+import com.mezzoforte.greenstreet.domain.solution.facade.SolutionSympathyFacade;
 import com.mezzoforte.greenstreet.domain.solution.presentation.dto.request.CreateSolutionCommentRequest;
 import com.mezzoforte.greenstreet.domain.solution.presentation.dto.request.CreateSolutionRequest;
+import com.mezzoforte.greenstreet.domain.solution.presentation.dto.request.CreateSolutionSympathyRequest;
 import com.mezzoforte.greenstreet.domain.solution.presentation.dto.request.UpdateSolutionCommentRequest;
 import com.mezzoforte.greenstreet.domain.solution.repository.SolutionCommentRepository;
 import com.mezzoforte.greenstreet.domain.solution.repository.SolutionRepository;
 import com.mezzoforte.greenstreet.domain.solution.entity.Solution;
+import com.mezzoforte.greenstreet.domain.solution.repository.SolutionSympathyRepository;
 import com.mezzoforte.greenstreet.domain.user.entity.User;
 import com.mezzoforte.greenstreet.global.error.exception.InvalidPermissionException;
 import lombok.RequiredArgsConstructor;
@@ -25,9 +30,11 @@ public class SolutionService {
 
     private final SolutionRepository solutionRepository;
     private final SolutionCommentRepository solutionCommentRepository;
+    private final SolutionSympathyRepository solutionSympathyRepository;
     private final SolutionFacade solutionFacade;
     private final PostingFacade postingFacade;
     private final SolutionCommentFacade solutionCommentFacade;
+    private final SolutionSympathyFacade solutionSympathyFacade;
 
     @Transactional(readOnly = true)
     public Page<Solution> getSolutions(Pageable pageable) {
@@ -91,5 +98,38 @@ public class SolutionService {
         }
 
         solutionCommentRepository.delete(solutionComment);
+    }
+
+    @Transactional
+    public void createSolutionSympathy(CreateSolutionSympathyRequest request, User user) {
+
+        Solution solution = solutionFacade.querySolutionById(request.getSolutionId());
+        boolean existsSolutionSympathy = solutionSympathyRepository.existsBySolutionAndUser(solution, user);
+
+        if (existsSolutionSympathy) {
+            throw SolutionSympathyAlreadyExistsException.EXCEPTION;
+        }
+
+        SolutionSympathy solutionSympathy = SolutionSympathy.builder()
+                .solution(solution)
+                .user(user)
+                .build();
+
+        solutionSympathyRepository.save(solutionSympathy);
+
+        solution.increaseSympathyCount();
+        solutionRepository.save(solution);
+    }
+
+    @Transactional
+    public void deleteSolutionSympathy(long solutionId, User user) {
+
+        Solution solution = solutionFacade.querySolutionById(solutionId);
+        SolutionSympathy solutionSympathy = solutionSympathyFacade.querySolutionSympathyBySolutionAndUser(solution, user);
+
+        solutionSympathyRepository.save(solutionSympathy);
+
+        solution.decreaseSympathyCount();
+        solutionRepository.save(solution);
     }
 }
