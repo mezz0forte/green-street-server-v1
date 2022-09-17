@@ -52,7 +52,7 @@ public class PostingService {
 
     @Transactional(readOnly = true)
     public Posting getPostingById(long id) {
-        return postingFacade.getPostingById(id);
+        return postingFacade.queryPostingById(id);
     }
 
     @Transactional
@@ -87,7 +87,7 @@ public class PostingService {
     @Transactional
     public void deletePostingById(long id, User user) {
 
-        Posting posting = postingFacade.getPostingById(id);
+        Posting posting = postingFacade.queryPostingById(id);
 
         if(!user.equals(posting.getUser())) {
             throw InvalidPermissionException.EXCEPTION;
@@ -100,7 +100,7 @@ public class PostingService {
     @Transactional
     public void createPostingSympathy(CreatePostingSympathyRequest request, User user) {
 
-        Posting posting = postingFacade.getPostingById(request.getPostingId());
+        Posting posting = postingFacade.queryPostingById(request.getPostingId());
         boolean existsPostingSympathy = postingSympathyRepository.existsByPostingAndUser(posting, user);
 
         if(existsPostingSympathy) {
@@ -121,8 +121,8 @@ public class PostingService {
     @Transactional
     public void deletePostingSympathyByPostingId(long postingId, User user) {
 
-        Posting posting = postingFacade.getPostingById(postingId);
-        PostingSympathy postingSympathy = postingSympathyFacade.getPostingSympathyByPostingAndUser(posting, user);
+        Posting posting = postingFacade.queryPostingById(postingId);
+        PostingSympathy postingSympathy = postingSympathyFacade.queryPostingSympathyByPostingAndUser(posting, user);
 
         postingSympathyRepository.delete(postingSympathy);
 

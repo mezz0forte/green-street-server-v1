@@ -12,7 +12,7 @@ public class PostingFacade {
 
     private final PostingRepository postingRepository;
 
-    public Posting getPostingById(long id) {
+    public Posting queryPostingById(long id) {
         return postingRepository.findById(id)
                 .orElseThrow(() -> PostingNotFoundException.EXCEPTION);
     }

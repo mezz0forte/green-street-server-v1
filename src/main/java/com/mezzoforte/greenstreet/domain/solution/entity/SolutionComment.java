@@ -2,6 +2,7 @@ package com.mezzoforte.greenstreet.domain.solution.entity;
 
 import com.mezzoforte.greenstreet.domain.user.entity.User;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
@@ -31,5 +32,17 @@ public class SolutionComment {
     private Solution solution;
 
     @CreationTimestamp
+    @Column(nullable = false)
     private LocalDateTime createdAt;
+
+    public void updateCommentContent(String content) {
+        this.content = content;
+    }
+
+    @Builder
+    public SolutionComment(String content, User user, Solution solution) {
+        this.content = content;
+        this.user = user;
+        this.solution = solution;
+    }
 }

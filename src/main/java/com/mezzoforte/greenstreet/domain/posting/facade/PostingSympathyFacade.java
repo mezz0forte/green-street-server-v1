@@ -14,7 +14,7 @@ public class PostingSympathyFacade {
 
     private final PostingSympathyRepository postingSympathyRepository;
 
-    public PostingSympathy getPostingSympathyByPostingAndUser(Posting posting, User user) {
+    public PostingSympathy queryPostingSympathyByPostingAndUser(Posting posting, User user) {
         return postingSympathyRepository.findByPostingAndUser(posting, user)
                 .orElseThrow(() -> PostingSympathyNotFoundException.EXCEPTION);
     }

@@ -40,7 +40,7 @@ public class Solution {
     private Posting posting;
 
     @Column(nullable = false)
-    private long likeCount;
+    private long sympathyCount;
 
     @OneToMany(mappedBy = "solution")
     private List<SolutionComment> commentList = new ArrayList<>();
@@ -54,6 +54,6 @@ public class Solution {
         this.type = type;
         this.solver = solver;
         this.posting = posting;
-        this.likeCount = 0;
+        this.sympathyCount = 0;
     }
 }

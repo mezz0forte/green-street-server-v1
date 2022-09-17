@@ -25,40 +25,40 @@ public class SolutionController {
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public Page<Solution> getSolutions(@PageableDefault(sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
-        return solutionService.getAll(pageable);
+        return solutionService.getSolutions(pageable);
     }
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public Solution getSolutionById(@PathVariable long id) {
-        return solutionService.getById(id);
+        return solutionService.getSolutionById(id);
     }
 
     @AuthorizationCheck
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void createSolution(@RequestBody CreateSolutionRequest request, @RequestAttribute User user) {
-        solutionService.create(request);
+        solutionService.createSolution(request, user);
     }
 
     @AuthorizationCheck
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void createSolutionComment(@RequestBody CreateSolutionCommentRequest request, @RequestAttribute User user) {
-
+        solutionService.createSolutionComment(request, user);
     }
 
     @AuthorizationCheck
-    @PatchMapping("/comment/{id}")
+    @PatchMapping("/comment")
     @ResponseStatus(HttpStatus.OK)
-    public void updateSolutionComment(@PathVariable long id, @RequestBody UpdateSolutionCommentRequest request, @RequestAttribute User user) {
-
+    public void updateSolutionComment(@RequestBody UpdateSolutionCommentRequest request, @RequestAttribute User user) {
+        solutionService.updateSolutionComment(request, user);
     }
 
     @AuthorizationCheck
     @DeleteMapping("/comment/{id}")
     @ResponseStatus(HttpStatus.OK)
     public void deleteComment(@PathVariable long id, @RequestAttribute User user) {
-
+        solutionService.deleteCommentById(id, user);
     }
 }

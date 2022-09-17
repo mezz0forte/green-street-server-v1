@@ -22,7 +22,7 @@ public class PostingPhoto {
     private String imageUrl;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "posting_id")
+    @JoinColumn(name = "fk_posting_id")
     private Posting posting;
 
     @Builder

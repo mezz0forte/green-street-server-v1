@@ -42,7 +42,7 @@ public class Posting {
     private List<PostingPhoto> photoList = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "fk_user_id")
     private User user;
 
     @CreationTimestamp

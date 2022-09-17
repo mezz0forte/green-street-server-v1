@@ -17,11 +17,11 @@ public class PostingSympathy {
     private long id;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "fk_user_id")
     private User user;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "posting_id")
+    @JoinColumn(name = "fk_posting_id")
     private Posting posting;
 
     @Builder

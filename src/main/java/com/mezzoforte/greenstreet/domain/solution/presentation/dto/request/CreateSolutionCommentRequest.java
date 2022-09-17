@@ -6,6 +6,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 @Getter
@@ -15,4 +16,7 @@ public class CreateSolutionCommentRequest {
 
     @NotNull
     private long solutionId;
+
+    @NotEmpty
+    private String content;
 }
