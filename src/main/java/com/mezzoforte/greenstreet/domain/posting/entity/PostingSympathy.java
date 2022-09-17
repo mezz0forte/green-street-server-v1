@@ -2,6 +2,7 @@ package com.mezzoforte.greenstreet.domain.posting.entity;
 
 import com.mezzoforte.greenstreet.domain.user.domain.entity.User;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -22,4 +23,10 @@ public class PostingSympathy {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "posting_id")
     private Posting posting;
+
+    @Builder
+    public PostingSympathy(User user, Posting posting) {
+        this.user = user;
+        this.posting = posting;
+    }
 }

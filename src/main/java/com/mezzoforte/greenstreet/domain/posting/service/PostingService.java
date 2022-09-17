@@ -1,16 +1,26 @@
 package com.mezzoforte.greenstreet.domain.posting.service;
 
+import com.mezzoforte.greenstreet.domain.posting.entity.PostingPhoto;
+import com.mezzoforte.greenstreet.domain.posting.entity.PostingSympathy;
 import com.mezzoforte.greenstreet.domain.posting.exception.PostingNotFoundException;
+import com.mezzoforte.greenstreet.domain.posting.exception.PostingSympathyAlreadyExistsException;
+import com.mezzoforte.greenstreet.domain.posting.facade.PostingFacade;
+import com.mezzoforte.greenstreet.domain.posting.facade.PostingSympathyFacade;
 import com.mezzoforte.greenstreet.domain.posting.presentation.dto.request.CreatePostingRequest;
 import com.mezzoforte.greenstreet.domain.posting.presentation.dto.request.CreatePostingSympathyRequest;
 import com.mezzoforte.greenstreet.domain.posting.presentation.dto.request.UpdatePostingRequest;
 import com.mezzoforte.greenstreet.domain.posting.entity.Posting;
+import com.mezzoforte.greenstreet.domain.posting.repository.PostingPhotoRepository;
+import com.mezzoforte.greenstreet.domain.posting.repository.PostingSympathyRepository;
 import com.mezzoforte.greenstreet.domain.posting.type.PostingStatus;
 import com.mezzoforte.greenstreet.domain.posting.presentation.dto.response.PostingResponse;
 import com.mezzoforte.greenstreet.domain.posting.repository.PostingRepository;
+import com.mezzoforte.greenstreet.domain.user.domain.entity.User;
 import com.mezzoforte.greenstreet.domain.user.domain.ro.UserRo;
+import com.mezzoforte.greenstreet.global.error.exception.InvalidPermissionException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -20,11 +30,13 @@ import java.util.stream.Collectors;
 public class PostingService {
 
     private final PostingRepository postingRepository;
+    private final PostingPhotoRepository postingPhotoRepository;
+    private final PostingSympathyRepository postingSympathyRepository;
+    private final PostingFacade postingFacade;
+    private final PostingSympathyFacade postingSympathyFacade;
 
+    @Transactional(readOnly = true)
     public List<PostingResponse> getPostingsByDistance(double latitude, double longitude) {
-
-        List<Posting> postingList = postingRepository.findAll();
-
 
         return postingRepository.findAll()
                 .stream().map((posting) -> new PostingResponse(
@@ -40,15 +52,13 @@ public class PostingService {
                 )).collect(Collectors.toList());
     }
 
+    @Transactional(readOnly = true)
     public Posting getPostingById(long id) {
-        Posting posting = postingRepository.findById(id)
-                .orElseThrow(() -> PostingNotFoundException.EXCEPTION);
-        return posting;
+        return postingFacade.getPostingById(id);
     }
 
-    public Posting createPosting(CreatePostingRequest request) {
-
-        // TODO : 유저 매개변수로 받아서 확인 후 posting 생성할 때 넣기
+    @Transactional
+    public Posting createPosting(CreatePostingRequest request, User user) {
 
         Posting posting = Posting.builder()
                 .title(request.getTitle())
@@ -56,32 +66,83 @@ public class PostingService {
                 .latitude(request.getLatitude())
                 .longitude(request.getLongitude())
                 .status(PostingStatus.ACTIVE)
-                .user()
+                .user(user)
                 .build();
+
+        postingRepository.save(posting);
+
+        int sequence = 1;
+
+        for (CreatePostingRequest.PhotoRequest photoRequest : request.getPhotos()) {
+            PostingPhoto postingPhoto = PostingPhoto.builder()
+                    .posting(posting)
+                    .imageUrl(photoRequest.getUrl())
+                    .sequence(sequence)
+                    .build();
+            postingPhotoRepository.save(postingPhoto);
+            sequence++;
+        }
 
         return posting;
     }
 
-    public Posting updatePosting(long id, UpdatePostingRequest request) {
-
-        // TODO : 유저 매개변수로 받아서 본인 게시물인지 확인
+    @Transactional
+    public Posting updatePosting(long id, UpdatePostingRequest request, User user) {
 
         Posting posting = postingRepository.findById(id)
                 .orElseThrow(() -> PostingNotFoundException.EXCEPTION);
+
+        if(!user.equals(posting.getUser())) {
+            throw InvalidPermissionException.EXCEPTION;
+        }
 
         posting.modifyTitleAndContent(request.getTitle(), request.getContent());
 
         return posting;
     }
 
-    public void deletePostingById(long id) {
+    @Transactional
+    public void deletePostingById(long id, User user) {
 
-        // TODO : 유저 매개변수로 받아서 본인 게시물인지 확인
+        Posting posting = postingFacade.getPostingById(id);
+
+        if(!user.equals(posting.getUser())) {
+            throw InvalidPermissionException.EXCEPTION;
+        }
 
         postingRepository.deleteById(id);
     }
 
-    public Posting createPostingSympathy(CreatePostingSympathyRequest request) {
+    @Transactional
+    public void createPostingSympathy(CreatePostingSympathyRequest request, User user) {
 
+        Posting posting = postingFacade.getPostingById(request.getPostingId());
+        boolean existsPostingSympathy = postingSympathyRepository.existsByPostingAndUser(posting, user);
+
+        if(existsPostingSympathy) {
+            throw PostingSympathyAlreadyExistsException.EXCEPTION;
+        }
+
+        PostingSympathy postingSympathy = PostingSympathy.builder()
+                .posting(posting)
+                .user(user)
+                .build();
+
+        postingSympathyRepository.save(postingSympathy);
+
+        posting.increaseSympathyCount();
+        postingRepository.save(posting);
+    }
+
+    @Transactional
+    public void deletePostingSympathyByPostingId(long postingId, User user) {
+
+        Posting posting = postingFacade.getPostingById(postingId);
+        PostingSympathy postingSympathy = postingSympathyFacade.getPostingSympathyByPostingAndUser(posting, user);
+
+        postingSympathyRepository.delete(postingSympathy);
+
+        posting.decreaseSympathyCount();
+        postingRepository.save(posting);
     }
 }

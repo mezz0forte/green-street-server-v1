@@ -1,6 +1,7 @@
 package com.mezzoforte.greenstreet.domain.posting.entity;
 
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -18,9 +19,16 @@ public class PostingPhoto {
     private int sequence;
 
     @Column(nullable = false)
-    private String image;
+    private String imageUrl;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "posting_id")
     private Posting posting;
+
+    @Builder
+    public PostingPhoto(int sequence, String imageUrl, Posting posting) {
+        this.sequence = sequence;
+        this.imageUrl = imageUrl;
+        this.posting = posting;
+    }
 }

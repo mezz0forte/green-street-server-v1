@@ -54,6 +54,14 @@ public class Posting {
         this.content = content;
     }
 
+    public void increaseSympathyCount() {
+        this.sympathyCount += 1;
+    }
+
+    public void decreaseSympathyCount() {
+        this.sympathyCount -= 1;
+    }
+
     @Builder
     public Posting(String title, String content, double latitude, double longitude, PostingStatus status, User user) {
         this.title = title;

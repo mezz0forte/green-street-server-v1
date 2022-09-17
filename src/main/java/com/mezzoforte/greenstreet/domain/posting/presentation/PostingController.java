@@ -5,6 +5,8 @@ import com.mezzoforte.greenstreet.domain.posting.entity.Posting;
 import com.mezzoforte.greenstreet.domain.posting.presentation.dto.request.CreatePostingSympathyRequest;
 import com.mezzoforte.greenstreet.domain.posting.presentation.dto.response.PostingResponse;
 import com.mezzoforte.greenstreet.domain.posting.service.PostingService;
+import com.mezzoforte.greenstreet.domain.user.domain.entity.User;
+import com.mezzoforte.greenstreet.global.annotation.AuthorizationCheck;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -31,21 +33,32 @@ public class PostingController {
         return postingService.getPostingById(id);
     }
 
+    @AuthorizationCheck
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Posting createPosting(@RequestBody @Valid CreatePostingRequest request) {
-        return postingService.createPosting(request);
+    public Posting createPosting(@RequestBody @Valid CreatePostingRequest request, @RequestAttribute User user) {
+        return postingService.createPosting(request, user);
     }
 
+    @AuthorizationCheck
     @PostMapping("/sympathy")
     @ResponseStatus(HttpStatus.CREATED)
-    public Posting createPostingSympathy(@RequestBody @Valid CreatePostingSympathyRequest request) {
-        return postingService.createPostingSympathy(request);
+    public void createPostingSympathy(@RequestBody @Valid CreatePostingSympathyRequest request, @RequestAttribute User user) {
+        postingService.createPostingSympathy(request, user);
     }
 
+    @AuthorizationCheck
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public void deletePosting(@PathVariable("id") long id) {
-        postingService.deletePostingById(id);
+    public void deletePosting(@PathVariable("id") long id, @RequestAttribute User user) {
+        postingService.deletePostingById(id, user);
     }
+
+    @AuthorizationCheck
+    @DeleteMapping("/sympathy/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public void deletePostingSympathy(@PathVariable("id") long postingId, @RequestAttribute User user) {
+        postingService.deletePostingSympathyByPostingId(postingId, user);
+    }
+
 }

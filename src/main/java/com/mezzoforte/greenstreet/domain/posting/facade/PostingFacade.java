@@ -6,8 +6,8 @@ import com.mezzoforte.greenstreet.domain.posting.repository.PostingRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-@RequiredArgsConstructor
 @Component
+@RequiredArgsConstructor
 public class PostingFacade {
 
     private final PostingRepository postingRepository;

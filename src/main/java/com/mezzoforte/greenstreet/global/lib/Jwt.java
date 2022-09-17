@@ -1,16 +1,15 @@
 package com.mezzoforte.greenstreet.global.lib;
 
-import com.mezzoforte.greenstreet.domain.auth.exception.UserNotFoundException;
 import com.mezzoforte.greenstreet.domain.user.domain.entity.User;
 import com.mezzoforte.greenstreet.domain.user.domain.repository.UserRepository;
 import com.mezzoforte.greenstreet.global.enums.JwtType;
+import com.mezzoforte.greenstreet.global.error.exception.InvalidTokenException;
 import com.mezzoforte.greenstreet.global.lib.encrypt.SHA512Encrypt;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.RequiredArgsConstructor;
-import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -74,14 +73,14 @@ public class Jwt {
         Claims claims = Jwts.parser().setSigningKey(DatatypeConverter.parseBase64Binary(secretAccessKey)).parseClaimsJws(token).getBody();
 
         return userRepository.findById(claims.get("id", Long.class))
-                .orElseThrow(() -> UserNotFoundException.EXCEPTION);
+                .orElseThrow(() -> InvalidTokenException.EXCEPTION);
     }
 
     public String refresh(String refreshToken) {
 
         Claims claims = Jwts.parser().setSigningKey(DatatypeConverter.parseBase64Binary(secretRefreshKey)).parseClaimsJws(refreshToken).getBody();
         User user = userRepository.findById(claims.get("id", Long.class))
-                .orElseThrow(() -> UserNotFoundException.EXCEPTION);
+                .orElseThrow(() -> InvalidTokenException.EXCEPTION);
 
         return createToken(user, JwtType.ACCESS);
     }
@@ -97,6 +96,6 @@ public class Jwt {
             }
         }
 
-        return Strings.EMPTY;
+        return null;
     }
 }
