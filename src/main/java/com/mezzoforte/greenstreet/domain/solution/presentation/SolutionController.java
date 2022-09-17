@@ -2,6 +2,7 @@ package com.mezzoforte.greenstreet.domain.solution.presentation;
 
 import com.mezzoforte.greenstreet.domain.solution.presentation.dto.request.CreateSolutionCommentRequest;
 import com.mezzoforte.greenstreet.domain.solution.presentation.dto.request.CreateSolutionRequest;
+import com.mezzoforte.greenstreet.domain.solution.presentation.dto.request.CreateSolutionSympathyRequest;
 import com.mezzoforte.greenstreet.domain.solution.presentation.dto.request.UpdateSolutionCommentRequest;
 import com.mezzoforte.greenstreet.domain.solution.service.SolutionService;
 import com.mezzoforte.greenstreet.domain.solution.entity.Solution;
@@ -58,7 +59,21 @@ public class SolutionController {
     @AuthorizationCheck
     @DeleteMapping("/comment/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public void deleteComment(@PathVariable long id, @RequestAttribute User user) {
+    public void deleteSolutionComment(@PathVariable long id, @RequestAttribute User user) {
         solutionService.deleteCommentById(id, user);
+    }
+
+    @AuthorizationCheck
+    @PostMapping("/sympathy")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void createSolutionSympathy(@RequestBody CreateSolutionSympathyRequest request, @RequestAttribute User user) {
+        solutionService.createSolutionSympathy(request, user);
+    }
+
+    @AuthorizationCheck
+    @DeleteMapping("/sympathy/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public void deleteSolutionSympathy(@PathVariable("id") long solutionId, @RequestAttribute User user) {
+        solutionService.deleteSolutionSympathy(solutionId, user);
     }
 }
