@@ -26,8 +26,6 @@ public class S3UploadService implements UploadService {
     @Value("${cloud.aws.s3.bucket}")
     private String bucket;
 
-    private final String LOCAL_FILE_PATH = System.getProperty("user.dir");
-
     public String uploadFile(MultipartFile multipartFile) {
         return upload(multipartFile);
     }
@@ -47,7 +45,7 @@ public class S3UploadService implements UploadService {
     private String upload(MultipartFile multipartFile) {
 
         File uploadFile = convert(multipartFile);
-        String fileName = LOCAL_FILE_PATH + "/" + UUID.randomUUID() + uploadFile.getName();
+        String fileName = "greenstreet/" + UUID.randomUUID() + uploadFile.getName();
         String uploadImageUrl = putS3(uploadFile, fileName);
         removeNewFile(uploadFile);
         return uploadImageUrl;
