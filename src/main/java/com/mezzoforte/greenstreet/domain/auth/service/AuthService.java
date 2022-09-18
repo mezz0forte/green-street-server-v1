@@ -43,6 +43,7 @@ public class AuthService {
                 .nickname(request.getNickname())
                 .image(request.getImage())
                 .accountType(AccountType.NORMAL)
+                .password(encryptedPassword)
                 .build();
 
         userRepository.save(user);

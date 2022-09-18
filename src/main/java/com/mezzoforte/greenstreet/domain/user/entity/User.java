@@ -37,7 +37,7 @@ public class User {
     private AccountType accountType;
 
     @Builder
-    public User(String phone, String nickname, String image, AccountType accountType) {
+    public User(String phone, String nickname, String image, String password, AccountType accountType) {
         this.phone = phone;
         this.nickname = nickname;
         this.image = image;
