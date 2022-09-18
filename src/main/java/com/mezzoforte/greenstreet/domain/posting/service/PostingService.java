@@ -45,7 +45,7 @@ public class PostingService {
                         posting.getStatus(),
                         posting.getTitle(),
                         posting.getContent(),
-                        new UserResponse(posting.getUser().getId(), posting.getUser().getImage(), posting.getUser().getNickname()),
+                        new UserResponse(posting.getUser().getId(),  posting.getUser().getPhone(), posting.getUser().getImage(), posting.getUser().getNickname()),
                         posting.getPhotoList()
                 )).collect(Collectors.toList());
     }

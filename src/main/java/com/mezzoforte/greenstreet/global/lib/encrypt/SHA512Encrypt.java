@@ -1,6 +1,7 @@
 package com.mezzoforte.greenstreet.global.lib.encrypt;
 
 import com.mezzoforte.greenstreet.global.error.exception.EncryptException;
+import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -10,8 +11,9 @@ import java.security.MessageDigest;
 @RequiredArgsConstructor
 public class SHA512Encrypt implements Encrypt {
 
-    public String getEncryptMethodName() {
-        return "sha-512";
+    @Override
+    public SignatureAlgorithm getSignatureAlgorithm() {
+        return SignatureAlgorithm.HS512;
     }
 
     public String encode(String data) {

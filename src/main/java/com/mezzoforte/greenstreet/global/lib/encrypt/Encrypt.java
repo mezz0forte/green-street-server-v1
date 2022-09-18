@@ -1,8 +1,10 @@
 package com.mezzoforte.greenstreet.global.lib.encrypt;
 
+import io.jsonwebtoken.SignatureAlgorithm;
+
 public interface Encrypt {
 
-    String getEncryptMethodName();
+    SignatureAlgorithm getSignatureAlgorithm();
 
     String encode(String data);
 

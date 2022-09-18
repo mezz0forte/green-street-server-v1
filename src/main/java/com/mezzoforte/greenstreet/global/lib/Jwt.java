@@ -8,7 +8,6 @@ import com.mezzoforte.greenstreet.global.lib.encrypt.SHA512Encrypt;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -30,7 +29,6 @@ public class Jwt {
     private String secretRefreshKey;
 
     private final SHA512Encrypt encrypt;
-    private final SignatureAlgorithm signatureAlgorithm;
     private final UserRepository userRepository;
 
     public String createToken(User user, JwtType jwtType) {
@@ -51,11 +49,11 @@ public class Jwt {
         }
 
         byte[] apiKeySecretBytes = DatatypeConverter.parseBase64Binary(secretKey);
-        Key signingKey = new SecretKeySpec(apiKeySecretBytes, encrypt.getEncryptMethodName());
+        Key signingKey = new SecretKeySpec(apiKeySecretBytes, encrypt.getSignatureAlgorithm().getValue());
 
         Map<String, Object> headerMap = new HashMap<>();
         headerMap.put("typ", "JWT");
-        headerMap.put("alg", encrypt.getEncryptMethodName());
+        headerMap.put("alg", encrypt.getSignatureAlgorithm());
 
         Map<String, Object> claimsMap = new HashMap<>();
         claimsMap.put("id", user.getId());
@@ -63,7 +61,7 @@ public class Jwt {
         JwtBuilder builder = Jwts.builder().setHeaderParams(headerMap)
                 .setClaims(claimsMap)
                 .setExpiration(expiredDate.getTime())
-                .signWith(signatureAlgorithm, signingKey);
+                .signWith(encrypt.getSignatureAlgorithm(), signingKey);
 
         return builder.compact();
     }

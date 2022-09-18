@@ -43,7 +43,7 @@ public class SolutionController {
     }
 
     @AuthorizationCheck
-    @PostMapping
+    @PostMapping("/comment")
     @ResponseStatus(HttpStatus.CREATED)
     public void createSolutionComment(@RequestBody CreateSolutionCommentRequest request, @RequestAttribute User user) {
         solutionService.createSolutionComment(request, user);
