@@ -77,10 +77,8 @@ public class S3UploadService implements UploadService {
     }
 
     private void removeNewFile(File targetFile) {
-        if (targetFile.delete()) {
-            System.out.println("File delete success");
-            return;
+        if (!targetFile.delete()) {
+            // TODO : 에러 로깅하기
         }
-        System.out.println("File delete fail");
     }
 }
