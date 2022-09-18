@@ -18,7 +18,7 @@ public class User {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(nullable = false, length = 20)
+    @Column(nullable = false, length = 20, unique = true)
     private String phone;
 
     @Column(nullable = false, length = 50)

@@ -1,6 +1,7 @@
 package com.mezzoforte.greenstreet.domain.auth.service;
 
 import com.mezzoforte.greenstreet.domain.auth.exception.PasswordNotMatchException;
+import com.mezzoforte.greenstreet.domain.auth.exception.UserAlreadyExistsException;
 import com.mezzoforte.greenstreet.domain.auth.presentation.dto.request.JoinRequest;
 import com.mezzoforte.greenstreet.domain.auth.presentation.dto.request.LoginRequest;
 import com.mezzoforte.greenstreet.domain.auth.presentation.dto.response.LoginTokenResponse;
@@ -29,6 +30,12 @@ public class AuthService {
     public void join(JoinRequest request) {
 
         // TODO : 전화번호 인증
+
+        request.getPhone().replaceAll("[^0-9]", "");
+
+        if (userRepository.existsByPhone(request.getPhone())) {
+            throw UserAlreadyExistsException.EXCEPTION;
+        }
 
         String encryptedPassword = encrypt.encode(request.getPassword());
         User user = User.builder()
