@@ -1,5 +1,6 @@
 package com.mezzoforte.greenstreet.domain.solution.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.mezzoforte.greenstreet.domain.user.entity.User;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -23,10 +24,12 @@ public class SolutionComment {
     @Size(max = 200)
     private String content;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user")
     private User user;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "solution")
     private Solution solution;

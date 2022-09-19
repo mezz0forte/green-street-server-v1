@@ -42,7 +42,7 @@ public class Solution {
     @Column(nullable = false)
     private long sympathyCount;
 
-    @OneToMany(mappedBy = "solution")
+    @OneToMany(mappedBy = "solution", fetch = FetchType.EAGER)
     private List<SolutionComment> commentList = new ArrayList<>();
 
     @CreationTimestamp

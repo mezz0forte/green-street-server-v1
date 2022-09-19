@@ -1,5 +1,6 @@
 package com.mezzoforte.greenstreet.domain.posting.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -21,6 +22,7 @@ public class PostingPhoto {
     @Column(nullable = false)
     private String imageUrl;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fk_posting_id")
     private Posting posting;

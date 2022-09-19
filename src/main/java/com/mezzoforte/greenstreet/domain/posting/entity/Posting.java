@@ -1,5 +1,6 @@
 package com.mezzoforte.greenstreet.domain.posting.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.mezzoforte.greenstreet.domain.posting.type.PostingStatus;
 import com.mezzoforte.greenstreet.domain.user.entity.User;
 import lombok.*;
@@ -38,7 +39,8 @@ public class Posting {
     @Column(nullable = false)
     private long sympathyCount;
 
-    @OneToMany(mappedBy = "posting")
+    @JsonIgnore
+    @OneToMany(mappedBy = "posting", fetch = FetchType.EAGER)
     private List<PostingPhoto> photoList = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.EAGER)
