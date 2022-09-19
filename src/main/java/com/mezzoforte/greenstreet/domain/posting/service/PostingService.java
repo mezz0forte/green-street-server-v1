@@ -55,7 +55,7 @@ public class PostingService {
         return postingFacade.queryPostingById(id);
     }
 
-    @Transactional
+    @Transactional(rollbackFor = {Exception.class})
     public Posting createPosting(CreatePostingRequest request, User user) {
 
         Posting posting = Posting.builder()
@@ -84,7 +84,7 @@ public class PostingService {
         return posting;
     }
 
-    @Transactional
+    @Transactional(rollbackFor = {Exception.class})
     public void deletePostingById(long id, User user) {
 
         Posting posting = postingFacade.queryPostingById(id);
@@ -97,7 +97,7 @@ public class PostingService {
         postingRepository.deleteById(id);
     }
 
-    @Transactional
+    @Transactional(rollbackFor = {Exception.class})
     public void createPostingSympathy(CreatePostingSympathyRequest request, User user) {
 
         Posting posting = postingFacade.queryPostingById(request.getPostingId());
@@ -118,7 +118,7 @@ public class PostingService {
         postingRepository.save(posting);
     }
 
-    @Transactional
+    @Transactional(rollbackFor = {Exception.class})
     public void deletePostingSympathyByPostingId(long postingId, User user) {
 
         Posting posting = postingFacade.queryPostingById(postingId);

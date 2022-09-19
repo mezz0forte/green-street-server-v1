@@ -46,7 +46,7 @@ public class SolutionService {
         return solutionFacade.querySolutionById(id);
     }
 
-    @Transactional
+    @Transactional(rollbackFor = {Exception.class})
     public void createSolution(CreateSolutionRequest request, User user) {
 
         Posting posting = postingFacade.queryPostingById(request.getPostingId());
@@ -61,7 +61,7 @@ public class SolutionService {
         solutionRepository.save(solution);
     }
 
-    @Transactional
+    @Transactional(rollbackFor = {Exception.class})
     public void createSolutionComment(CreateSolutionCommentRequest request, User user) {
 
         Solution solution = solutionFacade.querySolutionById(request.getSolutionId());
@@ -75,7 +75,7 @@ public class SolutionService {
         solutionCommentRepository.save(solutionComment);
     }
 
-    @Transactional
+    @Transactional(rollbackFor = {Exception.class})
     public void updateSolutionComment(UpdateSolutionCommentRequest request, User user) {
 
         SolutionComment solutionComment = solutionCommentFacade.querySolutionCommentById(request.getPostingId());
@@ -88,7 +88,7 @@ public class SolutionService {
         solutionCommentRepository.save(solutionComment);
     }
 
-    @Transactional
+    @Transactional(rollbackFor = {Exception.class})
     public void deleteCommentById(long id, User user) {
 
         SolutionComment solutionComment = solutionCommentFacade.querySolutionCommentById(id);
@@ -100,7 +100,7 @@ public class SolutionService {
         solutionCommentRepository.delete(solutionComment);
     }
 
-    @Transactional
+    @Transactional(rollbackFor = {Exception.class})
     public void createSolutionSympathy(CreateSolutionSympathyRequest request, User user) {
 
         Solution solution = solutionFacade.querySolutionById(request.getSolutionId());
@@ -121,7 +121,7 @@ public class SolutionService {
         solutionRepository.save(solution);
     }
 
-    @Transactional
+    @Transactional(rollbackFor = {Exception.class})
     public void deleteSolutionSympathy(long solutionId, User user) {
 
         Solution solution = solutionFacade.querySolutionById(solutionId);

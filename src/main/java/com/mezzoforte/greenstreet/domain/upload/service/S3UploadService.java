@@ -8,6 +8,7 @@ import com.mezzoforte.greenstreet.domain.upload.exception.FileUploadIOException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -26,10 +27,12 @@ public class S3UploadService implements UploadService {
     @Value("${cloud.aws.s3.bucket}")
     private String bucket;
 
+    @Transactional(rollbackFor = {Exception.class})
     public String uploadFile(MultipartFile multipartFile) {
         return upload(multipartFile);
     }
 
+    @Transactional(rollbackFor = {Exception.class})
     public List<String> uploadFiles(List<MultipartFile> multipartFiles) {
 
         List<String> resultList = new ArrayList<>();

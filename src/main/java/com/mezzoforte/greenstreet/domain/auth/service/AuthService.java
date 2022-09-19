@@ -26,7 +26,7 @@ public class AuthService {
     private final Jwt jwt;
     private final Encrypt encrypt;
 
-    @Transactional
+    @Transactional(rollbackFor = {Exception.class})
     public void join(JoinRequest request) {
 
         // TODO : 전화번호 인증
@@ -49,7 +49,7 @@ public class AuthService {
         userRepository.save(user);
     }
 
-    @Transactional
+    @Transactional(rollbackFor = {Exception.class})
     public LoginTokenResponse login(LoginRequest request) {
 
         User user = userFacade.queryUserByPhone(request.getPhone());
