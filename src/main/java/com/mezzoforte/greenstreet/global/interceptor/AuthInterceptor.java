@@ -41,7 +41,7 @@ public class AuthInterceptor implements HandlerInterceptor {
         }
 
         User user = jwt.validateToken(token);
-        request.setAttribute("user", user);
+        request.setAttribute("user", user.getId());
         return true;
     }
 }

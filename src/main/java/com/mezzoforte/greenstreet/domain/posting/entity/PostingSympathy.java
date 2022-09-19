@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-@Entity(name = "sympathy")
+@Entity(name = "posting_sympathy")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class PostingSympathy {

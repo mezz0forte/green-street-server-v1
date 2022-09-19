@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-@Entity(name = "photo")
+@Entity(name = "posting_photo")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class PostingPhoto {
