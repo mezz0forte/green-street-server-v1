@@ -29,6 +29,11 @@ spring:
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
+      
+logging:
+  level:
+    org.springframework.boot.autoconfigure: ERROR
+    com.amazonaws.util.EC2MetadataUtils: error
 
 cloud:
   aws:
