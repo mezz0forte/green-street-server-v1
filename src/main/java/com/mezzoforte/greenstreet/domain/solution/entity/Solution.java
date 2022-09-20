@@ -32,11 +32,11 @@ public class Solution {
     private SolutionType type;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "solver")
+    @JoinColumn(name = "fk_solver_id")
     private User solver;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "posting")
+    @JoinColumn(name = "fk_posting_id")
     private Posting posting;
 
     @Column(nullable = false)

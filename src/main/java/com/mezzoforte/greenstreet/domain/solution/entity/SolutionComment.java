@@ -26,12 +26,12 @@ public class SolutionComment {
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "user")
+    @JoinColumn(name = "fk_user_id")
     private User user;
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "solution")
+    @JoinColumn(name = "fk_solution_id")
     private Solution solution;
 
     @CreationTimestamp
