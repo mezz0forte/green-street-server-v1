@@ -42,11 +42,15 @@ public class Solution {
     @Column(nullable = false)
     private long sympathyCount;
 
-    @OneToMany(mappedBy = "solution", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "solution", fetch = FetchType.LAZY)
     private List<SolutionComment> commentList = new ArrayList<>();
 
     @CreationTimestamp
     private LocalDateTime createdAt;
+
+    public void injectCommentList(List<SolutionComment> commentList) {
+        this.commentList = commentList;
+    }
 
     public void increaseSympathyCount() {
         this.sympathyCount += 1;

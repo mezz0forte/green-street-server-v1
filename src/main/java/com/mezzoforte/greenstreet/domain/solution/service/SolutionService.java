@@ -19,10 +19,11 @@ import com.mezzoforte.greenstreet.domain.solution.repository.SolutionSympathyRep
 import com.mezzoforte.greenstreet.domain.user.entity.User;
 import com.mezzoforte.greenstreet.global.error.exception.InvalidPermissionException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -37,8 +38,8 @@ public class SolutionService {
     private final SolutionSympathyFacade solutionSympathyFacade;
 
     @Transactional(readOnly = true)
-    public Page<Solution> getSolutions(Pageable pageable) {
-        return solutionRepository.findAll(pageable);
+    public List<Solution> getSolutions(Pageable pageable) {
+        return solutionFacade.queryAllSolution(pageable);
     }
 
     @Transactional(readOnly = true)

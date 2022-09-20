@@ -36,7 +36,7 @@ public class PostingService {
     @Transactional(readOnly = true)
     public List<PostingResponse> getPostingsByDistance(double latitude, double longitude) {
 
-        return postingRepository.findAll()
+        return postingFacade.queryAllPostings()
                 .stream().map((posting) -> new PostingResponse(
                         posting.getId(),
                         posting.getLatitude(),

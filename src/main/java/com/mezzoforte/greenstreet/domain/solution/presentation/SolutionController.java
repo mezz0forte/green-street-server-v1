@@ -9,12 +9,13 @@ import com.mezzoforte.greenstreet.domain.solution.entity.Solution;
 import com.mezzoforte.greenstreet.domain.user.entity.User;
 import com.mezzoforte.greenstreet.global.annotation.AuthorizationCheck;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -25,7 +26,7 @@ public class SolutionController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public Page<Solution> getSolutions(@PageableDefault(sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
+    public List<Solution> getSolutions(@PageableDefault(sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
         return solutionService.getSolutions(pageable);
     }
 

@@ -40,7 +40,7 @@ public class Posting {
     private long sympathyCount;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "posting", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "posting", fetch = FetchType.LAZY)
     private List<PostingPhoto> photoList = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -50,6 +50,10 @@ public class Posting {
     @CreationTimestamp
     @Column(nullable = false)
     private LocalDateTime createdAt;
+
+    public void injectPostingPhotoList(List<PostingPhoto> postingPhotoList) {
+        this.photoList = postingPhotoList;
+    }
 
     public void modifyTitleAndContent(String title, String content) {
         this.title = title;
