@@ -68,6 +68,10 @@ public class Posting {
         this.sympathyCount -= 1;
     }
 
+    public void updateStatus(PostingStatus status) {
+        this.status = status;
+    }
+
     @Builder
     public Posting(String title, String content, double latitude, double longitude, PostingStatus status, User user) {
         this.title = title;

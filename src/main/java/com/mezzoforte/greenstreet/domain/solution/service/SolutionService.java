@@ -2,6 +2,8 @@ package com.mezzoforte.greenstreet.domain.solution.service;
 
 import com.mezzoforte.greenstreet.domain.posting.entity.Posting;
 import com.mezzoforte.greenstreet.domain.posting.facade.PostingFacade;
+import com.mezzoforte.greenstreet.domain.posting.repository.PostingRepository;
+import com.mezzoforte.greenstreet.domain.posting.type.PostingStatus;
 import com.mezzoforte.greenstreet.domain.solution.entity.SolutionComment;
 import com.mezzoforte.greenstreet.domain.solution.entity.SolutionSympathy;
 import com.mezzoforte.greenstreet.domain.solution.exception.SolutionSympathyAlreadyExistsException;
@@ -32,6 +34,7 @@ public class SolutionService {
     private final SolutionRepository solutionRepository;
     private final SolutionCommentRepository solutionCommentRepository;
     private final SolutionSympathyRepository solutionSympathyRepository;
+    private final PostingRepository postingRepository;
     private final SolutionFacade solutionFacade;
     private final PostingFacade postingFacade;
     private final SolutionCommentFacade solutionCommentFacade;
@@ -58,6 +61,9 @@ public class SolutionService {
                 .solver(user)
                 .posting(posting)
                 .build();
+
+        posting.updateStatus(PostingStatus.DEACTIVATED);
+        postingRepository.save(posting);
 
         solutionRepository.save(solution);
     }
