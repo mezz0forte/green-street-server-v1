@@ -29,7 +29,7 @@ public class PostingController {
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Posting getPostingById(@PathVariable("id") long id) {
+    public PostingResponse getPostingById(@PathVariable("id") long id) {
         return postingService.getPostingById(id);
     }
 

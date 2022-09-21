@@ -51,8 +51,19 @@ public class PostingService {
     }
 
     @Transactional(readOnly = true)
-    public Posting getPostingById(long id) {
-        return postingFacade.queryPostingById(id);
+    public PostingResponse getPostingById(long id) {
+        Posting posting = postingFacade.queryPostingById(id);
+        return PostingResponse.builder()
+                .id(posting.getId())
+                .latitude(posting.getLatitude())
+                .longitude(posting.getLongitude())
+                .sympathyCount(posting.getSympathyCount())
+                .status(posting.getStatus())
+                .title(posting.getTitle())
+                .content(posting.getContent())
+                .user(new UserResponse(posting.getUser().getId(),  posting.getUser().getPhone(), posting.getUser().getImage(), posting.getUser().getNickname()))
+                .photoList(posting.getPhotoList())
+                .build();
     }
 
     @Transactional(rollbackFor = {Exception.class})
