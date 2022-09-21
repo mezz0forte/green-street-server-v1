@@ -1,13 +1,11 @@
 package com.mezzoforte.greenstreet.domain.user.presentation;
 
 import com.mezzoforte.greenstreet.domain.user.entity.User;
+import com.mezzoforte.greenstreet.domain.user.presentation.dto.response.UserResponse;
 import com.mezzoforte.greenstreet.domain.user.service.UserService;
 import com.mezzoforte.greenstreet.global.annotation.AuthorizationCheck;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.RequestAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/user")
@@ -15,6 +13,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
 
     private final UserService userService;
+
+    @AuthorizationCheck
+    @GetMapping("/my")
+    public UserResponse getMyInfo(@RequestAttribute User user) {
+        return userService.getUserInfo(user);
+    }
 
     @AuthorizationCheck
     @DeleteMapping
