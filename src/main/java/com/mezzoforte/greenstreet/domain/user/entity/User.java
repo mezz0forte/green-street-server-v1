@@ -41,6 +41,7 @@ public class User {
         this.phone = phone;
         this.nickname = nickname;
         this.image = image;
+        this.password = password;
         this.accountType = accountType;
     }
 }
