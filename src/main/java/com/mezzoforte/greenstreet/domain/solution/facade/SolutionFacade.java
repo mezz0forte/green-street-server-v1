@@ -1,5 +1,6 @@
 package com.mezzoforte.greenstreet.domain.solution.facade;
 
+import com.mezzoforte.greenstreet.domain.posting.entity.Posting;
 import com.mezzoforte.greenstreet.domain.solution.entity.Solution;
 import com.mezzoforte.greenstreet.domain.solution.entity.SolutionComment;
 import com.mezzoforte.greenstreet.domain.solution.repository.SolutionCommentRepository;
@@ -29,6 +30,14 @@ public class SolutionFacade {
 
     public Solution querySolutionById(long id) {
         Solution solution = solutionRepository.findById(id)
+                .orElseThrow(() -> SolutionNotFoundException.EXCEPTION);
+        List<SolutionComment> solutionCommentList = solutionCommentRepository.findAllBySolution(solution);
+        solution.injectCommentList(solutionCommentList);
+        return solution;
+    }
+
+    public Solution querySolutionByPosting(Posting posting) {
+        Solution solution = solutionRepository.findByPosting(posting)
                 .orElseThrow(() -> SolutionNotFoundException.EXCEPTION);
         List<SolutionComment> solutionCommentList = solutionCommentRepository.findAllBySolution(solution);
         solution.injectCommentList(solutionCommentList);

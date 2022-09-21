@@ -50,6 +50,12 @@ public class SolutionService {
         return solutionFacade.querySolutionById(id);
     }
 
+    @Transactional(readOnly = true)
+    public Solution getSolutionByPostingId(long id) {
+        Posting posting = postingFacade.queryPostingById(id);
+        return solutionFacade.querySolutionByPosting(posting);
+    }
+
     @Transactional(rollbackFor = {Exception.class})
     public void createSolution(CreateSolutionRequest request, User user) {
 

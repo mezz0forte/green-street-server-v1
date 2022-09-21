@@ -36,6 +36,12 @@ public class SolutionController {
         return solutionService.getSolutionById(id);
     }
 
+    @GetMapping("/posting/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public Solution getSolutionByPostingId(@PathVariable long id) {
+        return solutionService.getSolutionByPostingId(id);
+    }
+
     @AuthorizationCheck
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
