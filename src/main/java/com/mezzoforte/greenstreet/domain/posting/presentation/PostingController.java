@@ -34,6 +34,12 @@ public class PostingController {
     }
 
     @AuthorizationCheck
+    @GetMapping("/my")
+    public List<PostingResponse> getPostingsByToken(@RequestAttribute User user) {
+        return postingService.getPostingsByUser(user);
+    }
+
+    @AuthorizationCheck
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Posting createPosting(@RequestBody @Valid CreatePostingRequest request, @RequestAttribute User user) {

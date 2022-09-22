@@ -66,6 +66,22 @@ public class PostingService {
                 .build();
     }
 
+    public List<PostingResponse> getPostingsByUser(User user) {
+
+        return postingFacade.queryPostingsByUser(user)
+                .stream().map((posting) -> new PostingResponse(
+                        posting.getId(),
+                        posting.getLatitude(),
+                        posting.getLongitude(),
+                        posting.getSympathyCount(),
+                        posting.getStatus(),
+                        posting.getTitle(),
+                        posting.getContent(),
+                        new UserResponse(posting.getUser().getId(),  posting.getUser().getPhone(), posting.getUser().getImage(), posting.getUser().getNickname()),
+                        posting.getPhotoList()
+                )).collect(Collectors.toList());
+    }
+
     @Transactional(rollbackFor = {Exception.class})
     public Posting createPosting(CreatePostingRequest request, User user) {
 

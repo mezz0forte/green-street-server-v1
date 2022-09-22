@@ -5,6 +5,7 @@ import com.mezzoforte.greenstreet.domain.posting.entity.PostingPhoto;
 import com.mezzoforte.greenstreet.domain.posting.exception.PostingNotFoundException;
 import com.mezzoforte.greenstreet.domain.posting.repository.PostingPhotoRepository;
 import com.mezzoforte.greenstreet.domain.posting.repository.PostingRepository;
+import com.mezzoforte.greenstreet.domain.user.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -19,6 +20,15 @@ public class PostingFacade {
 
     public List<Posting> queryAllPostings() {
         List<Posting> postingList = postingRepository.findAll();
+        for (Posting posting : postingList) {
+            List<PostingPhoto> photoList = postingPhotoRepository.findAllByPosting(posting);
+            posting.injectPostingPhotoList(photoList);
+        }
+        return postingList;
+    }
+
+    public List<Posting> queryPostingsByUser(User user) {
+        List<Posting> postingList = postingRepository.findAllByUser(user);
         for (Posting posting : postingList) {
             List<PostingPhoto> photoList = postingPhotoRepository.findAllByPosting(posting);
             posting.injectPostingPhotoList(photoList);
